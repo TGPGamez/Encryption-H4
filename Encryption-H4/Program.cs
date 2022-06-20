@@ -1,15 +1,14 @@
 ﻿
+using Encryption_H4;
 
-using System.Security.Cryptography;
+RandomCrypt.RNGCrypto();
+Console.WriteLine("");
+RandomCrypt.RandomCrypto();
 
-using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
-{
-    byte[] data = new byte[4];
+Console.WriteLine("");
 
-    for (int i = 0; i < 10; i++)
-    {
-        rng.GetBytes(data);
-        int value = BitConverter.ToInt32(data, 0);
-        Console.WriteLine(value);
-    }
-}
+Console.WriteLine("Encrypter:");
+Console.WriteLine(Encrypter.Enctrypt("Hello"));
+Console.WriteLine(Encrypter.Decrypt("Ifmmp"));
+
+Console.ReadLine();
