@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hashing
+namespace SimpleHashing
 {
     public class Hash
     {
@@ -22,14 +22,6 @@ namespace Hashing
             using (var sha256 = SHA256.Create())
             {
                 return sha256.ComputeHash(toBeHashed);
-            }
-        }
-
-        public static byte[] ComputeHashSha512(byte[] toBeHashed)
-        {
-            using (var sha512 = SHA512.Create())
-            {
-                return sha512.ComputeHash(toBeHashed);
             }
         }
 

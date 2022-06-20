@@ -1,46 +1,111 @@
 ﻿
 
-using Hashing;
+using SimpleHashing;
+using System.Diagnostics;
+using System.Text;
 
 while (true)
 {
+    Console.Clear();
+    Console.WriteLine("SimpleHashing");
+    Console.WriteLine("Write the text you want to hash:");
+    ChooseHashOrHmac(Console.ReadLine());
+}
 
-    Console.WriteLine("Choose encryption type: \n" +
-        "1. Sha256\n" +
-        "2. Md5\n" + 
-        "3. Hmac md5");
 
-    string choice = Console.ReadLine().ToLower();
-    Console.Write("Text: ");
-    string text = Console.ReadLine();
+void ChooseHashOrHmac(string text)
+{
+    Console.WriteLine("1. Hash");
+    Console.WriteLine("2. HMac");
 
-    byte[] computed = null;
-
-    switch (choice)
+    string userInput = Console.ReadLine();
+    switch (userInput)
     {
         case "1":
-        case "sha256":
-            computed = Hash.ComputeHashSha256(text.GetBytesUTF8());
+            Console.Clear();
+            HashText(text);
             break;
         case "2":
-        case "md5":
-            computed = Hash.ComputeHashMd5(text.GetBytesUTF8());
-            break;
-        case "3":
-        case "hmac md5":
-            Console.Write("Key: ");
-            string hmacMd5Key = Console.ReadLine();
-            computed = Hmac.ComputeHmacmd5(text.GetBytesUTF8(), hmacMd5Key.GetBytesUTF8());
+            Console.Clear();
+            HMacText(text);
             break;
         default:
-            Console.WriteLine("Incorrect input");
+            Console.WriteLine("Wrong input");
             break;
     }
+}
 
-    if (computed != null)
+
+void HashText(string text)
+{
+    Stopwatch stopWatch = new Stopwatch();
+    stopWatch.Start();
+    byte[] hashed = ChooseHash(text);
+    stopWatch.Stop();
+    Console.WriteLine($"Elapsed Time: {stopWatch.ElapsedMilliseconds}");
+    Console.WriteLine($"Plain text: {hashed.ToBase64()}");
+    Console.WriteLine($"Hex: {hashed.ToHex()}");
+    Console.WriteLine("\nPress any key to continue..");
+    Console.ReadKey();
+
+}
+
+void HMacText(string text)
+{
+    Stopwatch stopWatch = new Stopwatch();
+    stopWatch.Start();
+    byte[] key = RandomNumberGenerator.GenerateKey();
+    byte[] hashed = ChooseHMac(text, key);
+    stopWatch.Stop();
+    Console.WriteLine($"Elapsed Time: {stopWatch.ElapsedMilliseconds}");
+    Console.WriteLine($"Key: {key.ToBase64()}");
+    Console.WriteLine($"Plain text: {hashed.ToBase64()}");
+    Console.WriteLine($"Hex: {hashed.ToHex()}");
+    Console.WriteLine("\nPress any key to continue..");
+    Console.ReadKey();
+
+}
+
+byte[] ChooseHash(string text)
+{
+    Console.WriteLine("1. Sha1");
+    Console.WriteLine("2. Sha256");
+    Console.WriteLine("3. HMd5");
+
+    string userInput = Console.ReadLine();
+    switch (userInput)
     {
-        Console.WriteLine("Base: " + computed.ToBase64());
-        Console.WriteLine("Hex: " + computed.ToHex());
+        case "1":
+            Console.Clear();
+            return Hash.ComputeHashSha1(Encoding.UTF8.GetBytes(text));
+        case "2":
+            return Hash.ComputeHashSha256(Encoding.UTF8.GetBytes(text));
+        case "3":
+            return Hash.ComputeHashMd5(Encoding.UTF8.GetBytes(text));
+        default:
+            Console.WriteLine("Wrong input");
+            return null;
     }
-    Console.WriteLine("-------------------");
+}
+
+byte[] ChooseHMac(string text, byte[] key)
+{
+    Console.WriteLine("1. Sha1");
+    Console.WriteLine("2. Sha256");
+    Console.WriteLine("3. HMd5");
+
+    string userInput = Console.ReadLine();
+    switch (userInput)
+    {
+        case "1":
+            Console.Clear();
+            return Hmac.ComputeHMacSha1(Encoding.UTF8.GetBytes(text), key);
+        case "2":
+            return Hmac.ComputeHMacSha256(Encoding.UTF8.GetBytes(text), key);
+        case "3":
+            return Hmac.ComputeHMacMd5(Encoding.UTF8.GetBytes(text), key);
+        default:
+            Console.WriteLine("Wrong input");
+            return null;
+    }
 }

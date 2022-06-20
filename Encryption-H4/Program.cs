@@ -1,5 +1,5 @@
 ﻿
-using Encryption_H4;
+using SimpleEncrypt;
 
 RandomCrypt.RNGCrypto();
 Console.WriteLine("");

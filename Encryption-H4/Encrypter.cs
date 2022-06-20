@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Encryption_H4
+namespace SimpleEncrypt
 {
     public class Encrypter
     {

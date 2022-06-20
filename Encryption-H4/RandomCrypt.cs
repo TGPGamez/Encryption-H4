@@ -6,14 +6,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Encryption_H4
+namespace SimpleEncrypt
 {
     public class RandomCrypt
     {
         public static void RNGCrypto()
         {
             Stopwatch watch = new Stopwatch();
-            Random rand = new Random();
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             Console.WriteLine("RNGCrypto:");
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
@@ -28,15 +28,14 @@ namespace Encryption_H4
                     Console.WriteLine(value);
                 }
                 watch.Stop();
-                Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds);
+                Console.WriteLine($"Elapsed time: {watch.ElapsedMilliseconds}");
             }
-            watch.Reset();
         }
 
         public static void RandomCrypto()
         {
             Stopwatch watch = new Stopwatch();
-            Random rand = new Random();
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             Console.WriteLine("Random:");
             watch.Start();
@@ -54,7 +53,7 @@ namespace Encryption_H4
                 Console.WriteLine(value);
             }
             watch.Stop();
-            Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds);
+            Console.WriteLine($"Elapsed time: {watch.ElapsedMilliseconds}");
         }
     }
 }
