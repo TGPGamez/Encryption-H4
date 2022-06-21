@@ -31,7 +31,7 @@ namespace SecurePasswords
 
     public enum TypeSystem
     {
-        UsedLocked,
+        UserLocked,
         UsernameExists,
         IncorrectPassword,
         IncorrectUsername

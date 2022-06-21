@@ -18,7 +18,7 @@ while(response == null || response.Status != true)
     if (response.Status == false)
     {
         Console.WriteLine(response.Message);
-        if (response.SystemType != TypeSystem.IncorrectUsername && response.SystemType != TypeSystem.UsedLocked)
+        if (response.SystemType != TypeSystem.IncorrectUsername && response.SystemType != TypeSystem.UserLocked)
         {
             SystemMessage systemMessage = loginManager.AddLoginAttempt(username);
             Console.WriteLine(systemMessage.Message);

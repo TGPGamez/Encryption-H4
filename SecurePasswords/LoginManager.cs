@@ -48,7 +48,7 @@ namespace SecurePasswords
             }
             else if (user.Status == UserStatus.Locked)
             {
-                return new SystemMessage(false, "User is locked", TypeSystem.UsedLocked);
+                return new SystemMessage(false, "User is locked", TypeSystem.UserLocked);
             }
             
             Encryption encryption = new Encryption();
@@ -85,7 +85,7 @@ namespace SecurePasswords
             if (loginAttempts >= 5)
             {
                 mockupData.ChangeStatus(user, UserStatus.Locked);
-                return new SystemMessage(false, "User is now locked", TypeSystem.UsedLocked);
+                return new SystemMessage(false, "User is now locked", TypeSystem.UserLocked);
             }
 
             return new SystemMessage(true, "Added attempt");
