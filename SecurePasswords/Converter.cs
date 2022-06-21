@@ -13,11 +13,6 @@ namespace SecurePasswords
             return Encoding.UTF8.GetBytes(convertText);
         }
 
-        public static string ToHex(this byte[] byteArray)
-        {
-            return BitConverter.ToString(byteArray);
-        }
-
         public static string ToBase64(this byte[] byteArray)
         {
             return Convert.ToBase64String(byteArray);
