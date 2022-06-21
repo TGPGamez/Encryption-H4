@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 
 namespace SecurePasswords
 {
-    public class Pbkdf2
+    public class Encryption
     {
-        private static int iterations = 100000;
-
-        public static byte[] HashPassword(byte[] toBeHashed, byte[] salt)
+        public byte[] HashPassword(byte[] toBeHashed, byte[] salt, int iterations, int bytesize = 32)
         {
+            byte[] hashed = new byte[bytesize];
+
             using (var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, iterations))
             {
-                return rfc2898.GetBytes(32);
+                hashed = rfc2898.GetBytes(bytesize);
             }
+            return hashed;
         }
     }
 }

@@ -1,22 +1,34 @@
 ﻿using SecurePasswords;
 using System.Text;
 
+LoginManager loginManager = new LoginManager();
 
+SystemMessage response = null;
+while(response == null || response.Status != true)
+{
+    Console.Clear();
+    Console.Write("Username: ");
+    string username = Console.ReadLine();
 
-MockupData mockupData = new MockupData();
+    Console.Write("Password: ");
+    string password = Console.ReadLine();
 
+    response = loginManager.Login(username, password);
 
-
-
-byte[] salt = Hash.GenerateSalt();
-byte[] hashedPasswordWithSalt = Hash.HashPasswordWithSalt(Encoding.UTF8.GetBytes("Test1234"), salt);
-
-byte[] lastHash = Pbkdf2.HashPassword(hashedPasswordWithSalt, salt);
-User user = new User("Test", lastHash.ToBase64(), "sha256", salt);
-mockupData.AddUser(user);
-
-
-
-byte[] hashedPasswordWithSalt = Hash.HashPasswordWithSalt(Encoding.UTF8.GetBytes("Test1234"), mockupData.GetUsers().Find(x => x.Username == "Test").Salt);
-Console.WriteLine($"User pass: {mockupData.GetUsers().Find(x => x.Username == "Test").Password}");
-Console.WriteLine($"Input pass {hashedPasswordWithSalt.ToBase64()}");
+    if (response.Status == false)
+    {
+        Console.WriteLine(response.Message);
+        if (response.SystemType != TypeSystem.IncorrectUsername && response.SystemType != TypeSystem.UsedLocked)
+        {
+            SystemMessage systemMessage = loginManager.AddLoginAttempt(username);
+            Console.WriteLine(systemMessage.Message);
+        }
+        Console.WriteLine("\nPress any key to continue");
+    }
+    else
+    {
+        Console.WriteLine(response.Message);
+        Console.WriteLine("\nPress any key to continue");
+    }
+    Console.ReadKey();
+}

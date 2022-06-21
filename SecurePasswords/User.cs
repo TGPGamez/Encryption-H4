@@ -8,55 +8,22 @@ namespace SecurePasswords
 {
     public class User
     {
-        private string username;
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
+        public int LoginAttempts { get; set; }
+        public UserStatus Status { get; set; }
 
-        public string Username
+
+        public User()
         {
-            get { return username; }
-            private set { username = value; }
+            Status = UserStatus.Active;
         }
+    }
 
-        private string password;
-
-        public string Password
-        {
-            get { return password; }
-            private set { password = value; }
-        }
-
-        private bool isLocked;
-
-        public bool IsLocked
-        {
-            get { return isLocked; }
-            set { isLocked = value; }
-        }
-
-        private string hashAlgorithm;
-
-        public string HashAlgorithm
-        {
-            get { return hashAlgorithm; }
-            private set { hashAlgorithm = value; }
-        }
-
-        private byte[] salt;
-
-        public byte[] Salt
-        {
-            get { return salt; }
-            private set { salt = value; }
-        }
-
-
-
-        public User(string username, string password, string hashAlgorithm, byte[] salt)
-        {
-            this.username = username;
-            this.password = password;
-            this.isLocked = false;
-            this.hashAlgorithm = hashAlgorithm;
-            this.salt = salt;
-        }
+    public enum UserStatus
+    {
+        Active,
+        Locked
     }
 }
