@@ -1,7 +1,7 @@
 ﻿
 using SimpleEncrypt;
 
-Excel excel = new Excel(@"C:\Users\tobi8268\Desktop\Results2", 1);
+Excel excel = new Excel(@"C:\Users\tobi8268\Desktop\Results", 1);
 
 EncryptResultSet encryptResultSet = RandomCrypt.RNGCrypto();
 excel.WriteToCell(0, 0, "RNGCrypto");
