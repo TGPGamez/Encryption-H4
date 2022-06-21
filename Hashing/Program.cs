@@ -42,7 +42,8 @@ void HashText(string text)
     stopWatch.Start();
     byte[] hashed = ChooseHash(text);
     stopWatch.Stop();
-    Console.WriteLine($"Elapsed Time: {stopWatch.ElapsedMilliseconds}");
+    Console.WriteLine($"Text to hash: {text}");
+    Console.WriteLine($"Elapsed Milliseconds: {stopWatch.ElapsedMilliseconds}");
     Console.WriteLine($"Plain text: {hashed.ToBase64()}");
     Console.WriteLine($"Hex: {hashed.ToHex()}");
     Console.WriteLine("\nPress any key to continue..");
@@ -57,7 +58,8 @@ void HMacText(string text)
     byte[] key = RandomNumberGenerator.GenerateKey();
     byte[] hashed = ChooseHMac(text, key);
     stopWatch.Stop();
-    Console.WriteLine($"Elapsed Time: {stopWatch.ElapsedMilliseconds}");
+    Console.WriteLine($"Text to hash: {text}");
+    Console.WriteLine($"Elapsed Milliseconds: {stopWatch.ElapsedMilliseconds}");
     Console.WriteLine($"Key: {key.ToBase64()}");
     Console.WriteLine($"Plain text: {hashed.ToBase64()}");
     Console.WriteLine($"Hex: {hashed.ToHex()}");
