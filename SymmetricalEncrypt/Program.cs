@@ -13,9 +13,9 @@ while (true)
     string text = Console.ReadLine();
 
     byte[] computed = null;
-    byte[] key;
-    byte[] iv;
     byte[] decrypted = null;
+    byte[] key = null;
+    byte[] iv = null;
 
     switch (choice)
     {
@@ -39,7 +39,9 @@ while (true)
     }
     if (computed != null && decrypted != null)
     {
-        Console.WriteLine($"Decrypted: {decrypted.GetString()}");
+        Console.WriteLine($"\n\nDecrypted: {decrypted.GetString()}");
+        Console.WriteLine($"Key: {key.ToBase64()}");
+        Console.WriteLine($"IV: {iv.ToBase64()}");
         Console.WriteLine($"Base: {computed.ToBase64()}");
         Console.WriteLine($"Hex: {computed.ToHex()}");
     }
