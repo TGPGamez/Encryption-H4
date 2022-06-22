@@ -4,10 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleHashing
+namespace SymmetricalEncrypt
 {
     public static class Converter
     {
+        public static byte[] GetBytesUTF8(this string convertText)
+        {
+            return Encoding.UTF8.GetBytes(convertText);
+        }
+        public static string GetString(this byte[] byteArray)
+        {
+            return Encoding.UTF8.GetString(byteArray);
+        }
 
         public static string ToHex(this byte[] byteArray)
         {

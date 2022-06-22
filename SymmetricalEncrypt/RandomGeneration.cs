@@ -7,17 +7,24 @@ using System.Threading.Tasks;
 
 namespace SymmetricalEncrypt
 {
-    public static class RandomNumberGenerator
+    public static class RandomGeneration
     {
-        public static byte[] Generate(int length)
+
+        public static byte[] GenerateRandomByteArray(int lenght)
         {
+            return GetRandomByteArray(lenght);
+        }
+
+        static byte[] GetRandomByteArray(int length)
+        {
+            byte[] data = new byte[length];
+
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
             {
-                byte[] data = new byte[length];
                 rng.GetBytes(data);
-
-                return data;
             }
+
+            return data;
         }
     }
 }
