@@ -10,11 +10,17 @@ namespace SymmetricalEncrypt
     public static class RandomGeneration
     {
 
-        public static byte[] GenerateRandomByteArray(int lenght)
+        public static byte[] GenerateRandomByteArray(int length)
         {
-            return GetRandomByteArray(lenght);
+            return GetRandomByteArray(length);
         }
 
+
+        /// <summary>
+        /// Generate random byte array using RNGCryptoServiceProvider
+        /// </summary>
+        /// <param name="length">Length of array</param>
+        /// <returns></returns>
         static byte[] GetRandomByteArray(int length)
         {
             byte[] data = new byte[length];

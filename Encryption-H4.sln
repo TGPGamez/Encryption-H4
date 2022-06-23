@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleHashing", "Hashing\Si
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecurePasswords", "SecurePasswords\SecurePasswords.csproj", "{1C0E8857-C116-469F-855E-7EE9BEDD5CF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymmetricalEncrypt", "SymmetricalEncrypt\SymmetricalEncrypt.csproj", "{DB576D17-0318-4FBD-933D-BFCD785FD808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SymmetricalEncrypt", "SymmetricalEncrypt\SymmetricalEncrypt.csproj", "{DB576D17-0318-4FBD-933D-BFCD785FD808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsymmetricalEncrypt", "AsymmetricalEncrypt\AsymmetricalEncrypt.csproj", "{0E23DACA-852F-4565-88DF-914F1DCA9CA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DB576D17-0318-4FBD-933D-BFCD785FD808}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB576D17-0318-4FBD-933D-BFCD785FD808}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB576D17-0318-4FBD-933D-BFCD785FD808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E23DACA-852F-4565-88DF-914F1DCA9CA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E23DACA-852F-4565-88DF-914F1DCA9CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E23DACA-852F-4565-88DF-914F1DCA9CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E23DACA-852F-4565-88DF-914F1DCA9CA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
