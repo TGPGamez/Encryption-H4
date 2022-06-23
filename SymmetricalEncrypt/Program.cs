@@ -35,15 +35,17 @@ while (true)
             decrypted = encryption.DecryptDes(computed, key, iv);
             break;
         default:
+            Console.WriteLine("Incorrect algorithm.");
             break;
     }
     if (computed != null && decrypted != null)
     {
-        Console.WriteLine($"\n\nDecrypted: {decrypted.GetString()}");
+        Console.WriteLine("\n\n");
+        Console.WriteLine($"Encrypted: {computed.ToBase64()}");
+        Console.WriteLine($"Hex: {computed.ToHex()}");
         Console.WriteLine($"Key: {key.ToBase64()}");
         Console.WriteLine($"IV: {iv.ToBase64()}");
-        Console.WriteLine($"Base: {computed.ToBase64()}");
-        Console.WriteLine($"Hex: {computed.ToHex()}");
+        Console.WriteLine($"Decrypted: {decrypted.GetString()}");
     }
     Console.WriteLine("\nPress any key to reset...");
     Console.ReadKey();

@@ -45,23 +45,23 @@ namespace SymmetricalEncrypt
         }
 
 
-        public byte[] DecryptAes(byte[] dataToEncrypt, byte[] key, byte[] iv)
+        public byte[] DecryptAes(byte[] dataToDecrypt, byte[] key, byte[] iv)
         {
             using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider())
             {
-                return Decrypt(aes, dataToEncrypt, key, iv);
+                return Decrypt(aes, dataToDecrypt, key, iv);
             }
         }
 
-        public byte[] DecryptDes(byte[] dataToEncrypt, byte[] key, byte[] iv)
+        public byte[] DecryptDes(byte[] dataToDecrypt, byte[] key, byte[] iv)
         {
             using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
             {
-                return Decrypt(des, dataToEncrypt, key, iv);
+                return Decrypt(des, dataToDecrypt, key, iv);
             }
         }
 
-        private byte[] Decrypt(SymmetricAlgorithm symmetricAlgorithm, byte[] dataToEncrypt, byte[] key, byte[] iv)
+        private byte[] Decrypt(SymmetricAlgorithm symmetricAlgorithm, byte[] dataToDecrypt, byte[] key, byte[] iv)
         {
             symmetricAlgorithm.Mode = CipherMode.CBC;
             symmetricAlgorithm.Padding = PaddingMode.PKCS7;
@@ -73,7 +73,7 @@ namespace SymmetricalEncrypt
             {
                 CryptoStream cryptoStream = new CryptoStream(memoryStream, symmetricAlgorithm.CreateDecryptor(), CryptoStreamMode.Write);
 
-                cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
+                cryptoStream.Write(dataToDecrypt, 0, dataToDecrypt.Length);
                 cryptoStream.FlushFinalBlock();
 
                 return memoryStream.ToArray();
