@@ -9,75 +9,53 @@ namespace SymmetricalEncrypt
 {
     public class Encryption
     {
-        public byte[] EncryptAes(byte[] dataToEncrypt, byte[] key, byte[] iv)
+        private SymmetricAlgorithm symmetricAlgorithm;
+
+        public Encryption()
         {
-            using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider())
-            {
-                return Encrypt(aes, dataToEncrypt, key, iv);
-            }
+
         }
 
-        public byte[] EncryptDes(byte[] dataToEncrypt, byte[] key, byte[] iv)
+        public bool IsEncryptionSet()
         {
-            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-            {
-                return Encrypt(des, dataToEncrypt, key, iv);
-            }
+            return symmetricAlgorithm != null;
         }
 
-        private byte[] Encrypt(SymmetricAlgorithm symmetricAlgorithm, byte[] dataToEncrypt, byte[] key, byte[] iv)
+        public void SetSymmetricalAlgorithm(SymmetricAlgorithm symmetricAlgorithm)
         {
-            symmetricAlgorithm.Mode = CipherMode.CBC;
-            symmetricAlgorithm.Padding = PaddingMode.PKCS7;
-
-            symmetricAlgorithm.Key = key;
-            symmetricAlgorithm.IV = iv;
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                CryptoStream cryptoStream = new CryptoStream(memoryStream, symmetricAlgorithm.CreateEncryptor(), CryptoStreamMode.Write);
-
-                cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
-                cryptoStream.FlushFinalBlock();
-
-                return memoryStream.ToArray();
-            }
+            this.symmetricAlgorithm = symmetricAlgorithm;
+            this.symmetricAlgorithm.GenerateIV();
+            this.symmetricAlgorithm.GenerateKey();
         }
 
 
-        public byte[] DecryptAes(byte[] dataToDecrypt, byte[] key, byte[] iv)
+        public byte[] Encrypt(byte[] dataToEncrypt)
         {
-            using (AesCryptoServiceProvider aes = new AesCryptoServiceProvider())
-            {
-                return Decrypt(aes, dataToDecrypt, key, iv);
-            }
+            this.symmetricAlgorithm.Mode = CipherMode.CBC;
+            this.symmetricAlgorithm.Padding = PaddingMode.PKCS7;
+
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptoStream = new CryptoStream(memoryStream, this.symmetricAlgorithm.CreateEncryptor(), CryptoStreamMode.Write);
+
+            cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
+            cryptoStream.FlushFinalBlock();
+
+            return memoryStream.ToArray();
         }
 
-        public byte[] DecryptDes(byte[] dataToDecrypt, byte[] key, byte[] iv)
+
+        public byte[] Decrypt(byte[] dataToDecrypt)
         {
-            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-            {
-                return Decrypt(des, dataToDecrypt, key, iv);
-            }
-        }
+            this.symmetricAlgorithm.Mode = CipherMode.CBC;
+            this.symmetricAlgorithm.Padding = PaddingMode.PKCS7;
+            
+            MemoryStream memoryStream = new MemoryStream(dataToDecrypt);
+            CryptoStream cryptoStream = new CryptoStream(memoryStream, this.symmetricAlgorithm.CreateDecryptor(), CryptoStreamMode.Read);
 
-        private byte[] Decrypt(SymmetricAlgorithm symmetricAlgorithm, byte[] dataToDecrypt, byte[] key, byte[] iv)
-        {
-            symmetricAlgorithm.Mode = CipherMode.CBC;
-            symmetricAlgorithm.Padding = PaddingMode.PKCS7;
+            byte[] plainText = new byte[dataToDecrypt.Length];
+            cryptoStream.Read(plainText, 0, dataToDecrypt.Length);
 
-            symmetricAlgorithm.Key = key;
-            symmetricAlgorithm.IV = iv;
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                CryptoStream cryptoStream = new CryptoStream(memoryStream, symmetricAlgorithm.CreateDecryptor(), CryptoStreamMode.Write);
-
-                cryptoStream.Write(dataToDecrypt, 0, dataToDecrypt.Length);
-                cryptoStream.FlushFinalBlock();
-
-                return memoryStream.ToArray();
-            }
+            return plainText;
         }
     }
 }
