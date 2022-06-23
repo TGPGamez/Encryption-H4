@@ -7,6 +7,11 @@ using System.Security.Cryptography;
 
 namespace SymmetricalEncrypt
 {
+    /// <summary>
+    /// Class to Encryption
+    /// 
+    /// This class can encrupt, decrypt and change the symmetricAlgorithm
+    /// </summary>
     public class Encryption
     {
         private SymmetricAlgorithm symmetricAlgorithm;
@@ -16,11 +21,19 @@ namespace SymmetricalEncrypt
 
         }
 
+        /// <summary>
+        /// Check if the algorithm is set
+        /// </summary>
+        /// <returns>if is set</returns>
         public bool IsEncryptionSet()
         {
             return symmetricAlgorithm != null;
         }
 
+        /// <summary>
+        /// Set the SymmetricalAlgorithm and generate new IV and Key
+        /// </summary>
+        /// <param name="symmetricAlgorithm"></param>
         public void SetSymmetricalAlgorithm(SymmetricAlgorithm symmetricAlgorithm)
         {
             this.symmetricAlgorithm = symmetricAlgorithm;
@@ -29,13 +42,21 @@ namespace SymmetricalEncrypt
         }
 
 
+        /// <summary>
+        /// Encrypt some data
+        /// </summary>
+        /// <param name="dataToEncrypt"></param>
+        /// <returns></returns>
         public byte[] Encrypt(byte[] dataToEncrypt)
         {
+            //Set the CipherMode
             this.symmetricAlgorithm.Mode = CipherMode.CBC;
+            //Set the PaddingMode
             this.symmetricAlgorithm.Padding = PaddingMode.PKCS7;
 
             MemoryStream memoryStream = new MemoryStream();
             CryptoStream cryptoStream = new CryptoStream(memoryStream, this.symmetricAlgorithm.CreateEncryptor(), CryptoStreamMode.Write);
+
 
             cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
             cryptoStream.FlushFinalBlock();
@@ -46,6 +67,7 @@ namespace SymmetricalEncrypt
 
         public byte[] Decrypt(byte[] dataToDecrypt)
         {
+            //Set the CipherMode
             this.symmetricAlgorithm.Mode = CipherMode.CBC;
             this.symmetricAlgorithm.Padding = PaddingMode.PKCS7;
             
