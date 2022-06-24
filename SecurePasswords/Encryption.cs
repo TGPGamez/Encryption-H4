@@ -13,7 +13,7 @@ namespace SecurePasswords
         {
             byte[] hashed = new byte[bytesize];
 
-            using (var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, iterations))
+            using (Rfc2898DeriveBytes rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, iterations))
             {
                 hashed = rfc2898.GetBytes(bytesize);
             }
