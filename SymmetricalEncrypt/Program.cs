@@ -8,13 +8,22 @@ Encryption encryption = new Encryption();
 while (true)
 {
     Console.Clear();
-    Console.WriteLine("Choose encryption type:");
-    Console.WriteLine("1. Aes\n2. Des\n3. TripleDes");
-    Console.Write("Choice: ");
-    string choice = Console.ReadLine();
     Console.Write("Text to encrypt: ");
     string text = Console.ReadLine();
+    Console.WriteLine("Choose encryption type:");
+    Console.WriteLine("1. Aes\n2. Des\n3. TripleDes");
 
+    ChooseAlgorithm();
+    EncryptionUI(text);
+    
+    Console.WriteLine("\nPress any key to reset...");
+    Console.ReadKey();
+}
+
+void ChooseAlgorithm()
+{
+    Console.Write("Choice: ");
+    string choice = Console.ReadLine();
     switch (choice)
     {
         case "1":
@@ -30,6 +39,10 @@ while (true)
             Console.WriteLine("Incorrect algorithm.");
             break;
     }
+}
+
+void EncryptionUI(string text)
+{
     if (encryption.IsEncryptionSet())
     {
         Stopwatch encryptWatch = new Stopwatch();
@@ -42,13 +55,11 @@ while (true)
         byte[] decrypted = encryption.Decrypt(computed);
         decryptWatch.Stop();
 
-        Console.WriteLine("\n\n");
+        Console.WriteLine("\n");
         Console.WriteLine($"Encrypted: {computed.ToBase64()}");
         Console.WriteLine($"Encryption time: {encryptWatch.ElapsedTicks} ticks");
         Console.WriteLine($"Hex: {computed.ToHex()}");
         Console.WriteLine($"Decrypted: {decrypted.GetString()}");
         Console.WriteLine($"Decryption time: {decryptWatch.ElapsedTicks} ticks");
     }
-    Console.WriteLine("\nPress any key to reset...");
-    Console.ReadKey();
 }
