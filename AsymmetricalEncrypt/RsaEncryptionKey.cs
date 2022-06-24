@@ -39,13 +39,13 @@ namespace AsymmetricalEncrypt
 
         public override byte[] EncryptData(byte[] dataToEncrypt)
         {
-            byte[] cipherData;
+            byte[] encrypt;
 
             rsa.PersistKeyInCsp = false;
             rsa.ImportParameters(publicKey);
-            cipherData = rsa.Encrypt(dataToEncrypt, true);
+            encrypt = rsa.Encrypt(dataToEncrypt, true);
 
-            return cipherData;
+            return encrypt;
         }
     }
 }

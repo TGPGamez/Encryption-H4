@@ -20,6 +20,7 @@ namespace AsymmetricalEncrypt
 
         public override void AssignNewKey()
         {
+            //Set Csp parameters
             CspParameters cspParameters = new CspParameters(1);
             cspParameters.KeyContainerName = containerName;
             cspParameters.Flags = CspProviderFlags.UseMachineKeyStore;

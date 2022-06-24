@@ -45,13 +45,13 @@ namespace AsymmetricalEncrypt
 
         public override byte[] EncryptData(byte[] dataToEncrypt)
         {
-            byte[] cipherData;
+            byte[] encrypt;
 
             rsa.PersistKeyInCsp = false;
             rsa.FromXmlString(File.ReadAllText(publicKeyPath));
-            cipherData = rsa.Encrypt(dataToEncrypt, false);
+            encrypt = rsa.Encrypt(dataToEncrypt, false);
 
-            return cipherData;
+            return encrypt;
         }
 
         private void DeleteKeyFile(string path)
