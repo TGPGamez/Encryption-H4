@@ -46,11 +46,6 @@ namespace SimpleEncrypt
             wb.Save();
         }
 
-        public void SaveAs(string path)
-        {
-            wb.SaveAs2(path);
-        }
-
         public void Close()
         {
             wb.Close();
