@@ -17,27 +17,6 @@ namespace SecurePasswords
         }
 
 
-        public SystemMessage AddUser(string username, string password)
-        {
-
-            if (mockupData.GetUserByUsername(username) != null)
-                return new SystemMessage(false, "User already exists", TypeSystem.UsernameExists);
-
-            User user = new User();
-            user.Username = username;
-            
-            Encryption encryption = new Encryption();
-
-            string salt = RandomGeneration.GenerateRandomString(32);
-            byte[] hashedPassW = encryption.HashPassword(password.GetBytesUTF8(), salt.GetBytesUTF8(), ITERATION_COUNT);
-            user.Password = hashedPassW.ToBase64();
-            user.Salt = salt;
-
-            mockupData.AddUser(user);
-      
-            return new SystemMessage(true, "Added user successfully");
-        }
-
 
         public SystemMessage Login(string username, string password)
         {
